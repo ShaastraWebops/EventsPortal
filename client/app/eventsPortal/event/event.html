@@ -1,0 +1,109 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div layout="row" layout-margin>
+  <div class="sample tabsdemoDynamicTabs" layout="column" ng-app="MyApp">
+    <md-card>
+      <md-card-content>
+        <table width="100%">
+          <td ng-click="editEventPhoto($event)" class="eventImage" width="1%">
+            <img src='/api/uploads/{{event.imageid}}/{{event.imagename}}' width="200" height="200">
+            <div class="edit"><b>Change Photo</b></div>
+          </td>
+          <td width="45%" style="vertical-align: top; padding-left: 10px;">
+            <table>
+              <tr>
+                <td>
+                  <h1>{{ event.name }}</h1>
+                  <font color="#777777"> {{ buildCatString() }}</font>
+                </td>
+                <td style="text-align: left; position: relative; top: -7px; padding-left: 24px;">
+                  <div style="position: relative; top: 5px;"><md-switch class="md-primary" ng-model="event.acceptedByAdmin" aria-label="Switch 1" ng-change="toggleVisiblity()" ng-show="isAdmin()">Event {{ getVisiblity() }}visible to public</md-switch></div>
+                  <ng-md-icon icon="verified_user" style="fill: green; position: relative; top: 6px;" size="24" ng-show="!isAdmin() && event.acceptedByAdmin"></ng-md-icon> <span ng-show="!isAdmin() && event.acceptedByAdmin">Event approved</span>
+                  <ng-md-icon icon="report" style="fill: orange; position: relative; top: 6px;" size="24" ng-show="!isAdmin() && !event.acceptedByAdmin"></ng-md-icon> <span ng-show="!isAdmin() && !event.acceptedByAdmin">Event not approved</span>
+                </td>
+              </tr>
+              <tr><td rowspan="2"><br />{{event.info}}</td></tr>
+            </table>
+          </td>
+          <td width="35%" style="text-align: right; vertical-align: top;">
+            <font color="#777777">
+              Created on {{ event.createdOn| date: 'medium' }}<br />
+              Last updated on {{ event.updatedOn| date: 'medium' }}<br />
+            </font>
+          </td>
+        </table>
+      </md-card-content>
+      <div class="md-actions" layout="row" layout-align="end center">
+        <md-button ng-show="showButton" ng-click="showAdvanced($event)">Edit event details</md-button>
+      </div>
+      <div class="md-actions" layout="row" layout-align="end center">
+        <md-button ng-show="showButton"><a target="_blank" ui-sref="eventMarqueeNotifications({eventId: eventIdFromURL})">Add marquee notifications</a></md-button>
+      </div>
+      <div class="md-actions" layout="row" layout-align="end center">
+        <md-button ng-show="showButton"><a target="_blank" href="/eventsPortal/registrations/{{event._id}}">View registrations</a></md-button>
+      </div>
+    </md-card>
+    <div class="tabStuff">
+
+      <md-content class="md-padding">
+        <md-tabs md-dynamic-height="" md-selected="selectedIndex" md-border-bottom="" md-autoselect="" md-stretch-tabs="no">
+          <md-tab md-on-select="setTab(-1)" label="Contact">
+            <table>
+              <tr>
+                <td style="padding: 16px;" style="padding: 16px;"><b>Name</b></td>
+                <td style="padding: 16px;"><b>Mobile Number</b></td>
+              <tr ng-repeat="assignee in assignees track by $index">
+                <td style="padding: 16px;">{{ assignee.name }}</td>
+                <td style="padding: 16px;">{{ assignee.phoneNumber }}</td>
+              </tr>
+            </table>
+          </md-tab>
+          <md-tab ng-repeat="tab in eventTabs track by $index" md-on-select="setTab(tab._id)" ng-disabled="tab.disabled" label="{{tab.name}}" active="tab.active">
+            <div id='tab1'>
+              <table width="100%">
+                <tr width="100%">
+                  <td width="30%">
+                    <md-input-container>
+                      <label>Tab name</label>
+                      <input required="" name="description" ng-model="tab.name">
+                    </md-input-container>
+                  </td>
+                  <td style="text-align: right">
+                    <md-button ng-show="showButton" class="md-primary md-raised tabStuff" ng-click="saveChanges()">Save Tab Changes</md-button>
+                    <md-button ng-show="showButton" class="md-primary md-raised md-warn" ng-click="removeTab()">Remove Tab</md-button>
+                  </td>
+                </tr>
+                  <tr>
+                <div class="summer">
+                  <td width="50%" height="auto"><textarea ng-model="markdown[currentTab]" class="code" style="height:100%;"></textarea></td>
+                  <td width="50%"><div v-html="input | marked" ng-bind-html="xmark(markdown[currentTab])" style="padding-left: 16px"></div></td>
+                </div>
+                  </tr>
+                </table>
+            </div>
+          </md-tab>
+        </md-tabs>
+      </md-content>
+    </div>
+  </div>
+  <div style="padding-top: 0; position: fixed; right: 0px; bottom: 0px; padding-right: 6px; padding-bottom: 6px;" class="tabStuff">
+    <md-button class="md-fab md-mini md-primary" aria-label="Markdown Tutorial" ng-click="markdownTutorial()">
+    <md-icon style="content:
+  url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAM1BMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///+ju2DbAAAAEHRSTlMAECAwQGCAoK+wwNDf4O/wissgewAAAGRJREFUeAHtzrsOwyAMRuGfC5iWS/3+T9sOqBKSnbBkSfztRzq4nPGlsaAVD5EbrBhyQax6QdJZ1SDhAxZYYIEF9w8oRNoPenb48fmzFbwT/lI9DShgEUkP5stqnkEyXwSp4tG+x745E/54MOwAAAAASUVORK5CYII=);
+  " style="color: greenyellow;">
+    </md-icon><md-tooltip>Markdown Tutorial</md-tooltip>
+    </md-button>
+    <md-button ng-show="showButton" class="md-fab md-mini md-primary" aria-label="New Tab" ng-click="newTab()">
+    <md-icon style="content:
+  url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAzklEQVQokc2QzwqCQBCHZ8t7qCEiYnf1JoX0Ej6Hj2ineoeQiPBWau5RxEMyjX8SvMSeyvnBwA7zwewH8K9aUERLg5XkuI4rS7oYcIWzXpyK42V9EwMQcIMPvKOJwoBJ6zMAFrAcwmKrBWIL2DibStZBlmxnt+/j+WFQF3URBp7/mdnORHICCYksefnsklccG2wqXubDhLeSk8nVGh4w7S5vk+GLko3vFCNUcQIwVOiTfQzc0nJG3RhnCm38XOvMAYU0RtSFAUbW1S8i51VvolDI45WzHX4AAAAASUVORK5CYII=);
+  " style="color: greenyellow;">
+    </md-icon><md-tooltip>New Tab</md-tooltip>
+    </md-button>
+    <md-button ng-show="showButton" class="md-fab md-mini md-primary" aria-label="Reorder tabs" ng-click="reorderTabs()">
+    <md-icon style="content:
+  url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACtJREFUeNpiYBgFo4BSwIjM+Q8EVDEUCOhmwSgYjeRRMBrJo2AUgABAgAEAdVMYB4OhELoAAAAASUVORK5CYII=);
+  " style="color: greenyellow;"></md-icon>
+    <md-tooltip>Reorder Tabs</md-tooltip>
+    </md-button>
+  </div>
+</div>

@@ -19,7 +19,7 @@ angular.module('erp2015App')
         }
       },
       updateProfile: {
-        method: 'POST',
+        method: 'PUT',
         params: {
           controller:'updateProfile'
         }

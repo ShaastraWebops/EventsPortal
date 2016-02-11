@@ -4,64 +4,82 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var crypto = require('crypto');
 var authTypes = ['github', 'twitter', 'facebook', 'google'];
-var hostels = ['Alakananda',
-               'Bhadra',
-               'Brahmaputra',
-               'Cauvery',
-               'Ganga',
-               'Godavari',
-               'Jamuna',
-               'Krishna',
-               'Mahanadhi',
-               'Mandakini',
-               'Narmada',
-               'Pampa',
-               'Saraswathi',
-               'Sabarmati',
-               'Sarayu',
-               'Sharavati',
-               'Sindhu',
-               'Sarayu Extension',
-               'Tamraparani',
-               'Tapti',
-               'Tunga',
-               'Day Scholar'
-               ];
+var allHostels = ['alakananda',
+                  'brahmaputra',
+                  'cauvery',
+                  'ganga',
+                  'jamuna',
+                  'krishna',
+                  'mandakini',
+                  'mahanadi',
+                  'narmada',
+                  'pampa',
+                  'saraswathi',
+                  'sabarmathi',
+                  'sindhu',
+                  'sharavati',
+                  'sarayu',
+                  'sarayuExtension',
+                  'thamiriapani',
+                  'tapti',
+                  'dayScholar'
+                  ];
 
 var UserSchema = new Schema({
   name: { type: String, default: '' },
+  secondName: { type: String, default: '' },
+  // 1 for Male, 0 for female
+  gender: { type: Boolean, default: true },
+  age: Number,
+  branch: { type: String, default: '' },
+  college: { type: Schema.Types.ObjectId, ref: 'College' },
+  //1 for school student, 0 for false
+  schoolStudent: { type: Boolean, default: false },
+  wantAccomodation: { type: Boolean, default: false },
+  interestedInShaastraFellowship: { type: Boolean, default: false },
+  emailVerified: { type: Boolean, default: false },
+  activationKey: String,
+  keyExpires: Date,
+  sendEmails: { type: Boolean, default: true },
+  dateCreated: { type: Date, default: Date.now },
+  interestedFields: [{ type: Schema.Types.ObjectId, ref: 'Field' }],
+  registrations: [{ type: Schema.Types.ObjectId, ref: 'Registration' }],
+  eventsApplied: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
   nick: String,
   profilePic: String,
   rollNumber: { type: String, default: '' },
-  hostel: {type: String, enum: hostels},
+  hostel: {},
   roomNumber: { type: String, default: '' },
+  stream: { type: String, default: '' },
+  state: { type: String, default: '' },
+  degree: { type: String, default: '' },
+  city: { type: String, default: '' },
   email: { type: String, lowercase: true, default: '' },
   role: {
     type: String,
     default: 'user'
   },
   isActive: {},
-  city: { type: String, default: '' },
   summerLocation: { type: String, default: '' },
   cgpa: { type: Number, default: '' },
   lastSeen: { type: Date },
   phoneNumber: { type: String, default: '' },
-  alternateNumber: { type: String, default: '' },
-  wall: {type: Schema.Types.ObjectId, ref: 'Wall'},
   department: [{ type: Schema.Types.ObjectId, ref: 'Department' }],
   subDepartment: [{ type: Schema.Types.ObjectId, ref: 'SubDepartment' }],
-  groups: [{ type: Schema.Types.ObjectId, ref: 'Group' }],
-  deviceId: [String], //Mobile ID for GCM push notifs
   hashedPassword: String,
   provider: String,
   salt: String,
+  festID: String,
+  barcodeID: { type: String, default: '' },
   updatedOn: { type: Date },
   createdOn: { type: Date },
   resetPasswordToken: String,
   resetPasswordExpires: Date,
   facebook: {},
   google: {},
-  github: {}
+  github: {},
+  selfTeam: { type: Schema.Types.ObjectId, ref: 'Team' },
+  teams: [{ type: Schema.Types.ObjectId, ref: 'Team' }]
 });
 
 /**
@@ -137,47 +155,38 @@ UserSchema
 //   }, 'Room Number cannot be blank');
 
 // Validate empty summerLocation
-UserSchema
-  .path('summerLocation')
-  .validate(function(summerLocation) {
-    if (authTypes.indexOf(this.provider) !== -1) return true;
-    return summerLocation.length;
-  }, 'Summer Location cannot be blank');
+// UserSchema
+//   .path('summerLocation')
+//   .validate(function(summerLocation) {
+//     if (authTypes.indexOf(this.provider) !== -1) return true;
+//     return summerLocation.length;
+//   }, 'Summer Location cannot be blank');
 
 // Validate cgpa
-UserSchema
-  .path('cgpa')
-  .validate(function(cgpa) {
-    if (authTypes.indexOf(this.provider) !== -1) return true;
-    var regExpCgpa = /^(10|\d)(\.\d{1,2})?$/;
-    return (regExpCgpa.test(cgpa));
-  }, 'CGPA cannot be blank');
+// UserSchema
+//   .path('cgpa')
+//   .validate(function(cgpa) {
+//     if (authTypes.indexOf(this.provider) !== -1) return true;
+//     var regExpCgpa = /^(10|\d)(\.\d{1,2})?$/;
+//     return (regExpCgpa.test(cgpa));
+//   }, 'CGPA cannot be blank');
 
 // Validate phoneNumber
 UserSchema
   .path('phoneNumber')
   .validate(function(phoneNumber) {
     if (authTypes.indexOf(this.provider) !== -1) return true;
-    var regExpPhone = /^\d{10}$/; 
+    var regExpPhone = /^\d{10}$/;
     return (regExpPhone.test(phoneNumber));
   }, 'Phone Number must have 10 digits');
 
-// //Validate Alternate Phone Number
-// UserSchema
-//   .path('alternateNumber')
-//   .validate(function(alternateNumber) {
-//     if (authTypes.indexOf(this.provider) !== -1) return true;
-//     var regExpPhone = /^\d{10}$/; 
-//     return (regExpPhone.test(alternateNumber));
-//   }, 'Phone Number must have 10 digits');
-
 // Validate rollNumber
-UserSchema
-  .path('rollNumber')
-  .validate(function(rollNumber) {
-    if (authTypes.indexOf(this.provider) !== -1) return true;
-    return (rollNumber.length == 8);
-  }, 'Roll Number must be of 8 characters');
+// UserSchema
+//   .path('rollNumber')
+//   .validate(function(rollNumber) {
+//     if (authTypes.indexOf(this.provider) !== -1) return true;
+//     return (rollNumber.length == 8);
+//   }, 'Roll Number must be of 8 characters');
 
 // Validate empty email
 UserSchema
@@ -206,7 +215,6 @@ UserSchema
         return respond(false);
       }
       respond(true);
-      console.log(value);
     });
 }, 'The specified email address is already in use.');
 

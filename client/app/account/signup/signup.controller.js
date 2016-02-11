@@ -3,9 +3,6 @@
 angular.module('erp2015App')
   .controller('SignupCtrl', function ($scope, Auth, $state, $location, $window) {
     $scope.getCurrentUser = Auth.getCurrentUser;
-    if (Auth.isLoggedIn())
-      $state.go('coordPortalDashboard');
-
     $scope.user = {};
     $scope.errors = {};
 
@@ -15,17 +12,17 @@ angular.module('erp2015App')
       if(form.$valid) {
         Auth.createUser({
           name: $scope.user.name,
+          secondName: $scope.user.secondName,
           email: $scope.user.email,
           password: $scope.user.password,
           city: $scope.user.city,
           rollNumber: $scope.user.rollNumber,
           phoneNumber: $scope.user.phoneNumber,
-          summerLocation: $scope.user.summerLocation,
           cgpa: $scope.user.cgpa
         })
         .then( function() {
           // Account created, redirect to dashboard
-          $location.url('/coordPortal/dashboard');
+          $state.go('eventsPortalDashboard');
         })
         .catch( function(err) {
           err = err.data;

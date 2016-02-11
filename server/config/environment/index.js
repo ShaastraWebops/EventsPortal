@@ -29,6 +29,9 @@ var all = {
     session: 'erp2015-secret'
   },
 
+  // List of user roles
+  userRoles: ['user', 'coord', 'superCoord', 'core', 'admin'],
+
   // MongoDB connection options
   mongo: {
     options: {
@@ -39,15 +42,15 @@ var all = {
   },
 
   facebook: {
-    clientID:     '1597426613877122' || process.env.FACEBOOK_ID || 'id',
-    clientSecret: '728fab2baac46d4dc6e27a87b7a13692' || process.env.FACEBOOK_SECRET || 'secret',
-    callbackURL:  (process.env.DOMAIN || '') + '/auth_visitor/facebook/callback'
+    clientID:     process.env.FACEBOOK_ID || 'id',
+    clientSecret: process.env.FACEBOOK_SECRET || 'secret',
+    callbackURL:  (process.env.DOMAIN || '') + '/auth/facebook/callback'
   },
 
   google: {
     clientID:     process.env.GOOGLE_ID || 'id',
     clientSecret: process.env.GOOGLE_SECRET || 'secret',
-    callbackURL:  (process.env.DOMAIN || '') + '/auth_visitor/google/callback'
+    callbackURL:  (process.env.DOMAIN || '') + '/auth/google/callback'
   }
 };
 

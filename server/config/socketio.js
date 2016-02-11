@@ -18,19 +18,23 @@ function onConnect(socket) {
   });
 
   // Insert sockets below
-  require('../api/visitor/visitor.socket').register(socket);
-  require('../api/hospitality/checkin/checkin.socket').register(socket);
-  require('../api/hospitality/room/room.socket').register(socket);
-  require('../api/hospitality/hostel/hostel.socket').register(socket);
-  require('../api/group/group.socket').register(socket);
-  require('../api/wall/wall.socket').register(socket);
-  require('../api/notification/notification.socket').register(socket);
+  require('../api/college/college.socket').register(socket);
+  require('../api/marqueeNotif/marqueeNotif.socket').register(socket);
+  require('../api/tdpresponse/tdpresponse.socket').register(socket);
+  require('../api/tdpform/tdpform.socket').register(socket);
+  require('../api/feedback/feedback.socket').register(socket);
+  require('../api/field/field.socket').register(socket);
+  require('../api/websiteUser/websiteUser.socket').register(socket);
+  require('../api/team/team.socket').register(socket);
+  require('../api/registration/registration.socket').register(socket);
+  require('../api/eventTab/eventTab.socket').register(socket);
+  require('../api/event/event.socket').register(socket);
+  require('../api/eventList/eventList.socket').register(socket);
   require('../api/comment/comment.socket').register(socket);
   require('../api/subDepartment/subDepartment.socket').register(socket);
   require('../api/post/post.socket').register(socket);
   require('../api/department/department.socket').register(socket);
   require('../api/task/task.socket').register(socket);
-  require('../api/thing/thing.socket').register(socket);
 }
 
 module.exports = function (socketio) {

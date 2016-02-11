@@ -64,7 +64,6 @@ angular.module('erp2015App')
           function (data) {
             $cookieStore.put('token', data.token);
             currentUser = User.get(function () {
-              console.log('User.save(), user role: ' + currentUser.role);
               deferred.resolve(data);
               return cb(currentUser);
             });
@@ -107,6 +106,7 @@ angular.module('erp2015App')
        */
       updateProfile: function(user, callback) {
         var cb = callback || angular.noop;
+        console.log(user);
         return User.updateProfile({ id: currentUser._id }, {
           userUpdate: user
         }, function(user) {
@@ -158,6 +158,14 @@ angular.module('erp2015App')
        */
       isAdmin: function() {
         return currentUser.role === 'admin';
+      },
+
+      isCore: function() {
+        return (currentUser.role === 'core' || currentUser.role === 'admin');
+      },
+
+      isSuperCoord: function() {
+        return (currentUser.role === 'superCoord' || currentUser.role === 'core' || currentUser.role === 'admin');
       },
 
       /**

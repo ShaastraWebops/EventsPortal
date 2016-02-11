@@ -10,16 +10,31 @@
 
         <div class="form-group" ng-class="{ 'has-success': form.name.$valid && submitted,
                                             'has-error': form.name.$invalid && submitted }">
-          <label>Name</label>
+          <label>First Name</label>
 
           <input type="text" name="name" class="form-control" ng-model="user.name"
                  required
                  mongoose-error/>
           <span class="help-block" ng-show="form.name.$error.required && submitted">
-            A name is required
+            First name is required
           </span>
           <span class="help-block" ng-show="form.name.$error.mongoose">
             {{ errors.name }}
+          </span>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-success': form.secondName.$valid && submitted,
+                                            'has-error': form.secondName.$invalid && submitted }">
+          <label>Second Name</label>
+
+          <input type="text" name="secondName" class="form-control" ng-model="user.secondName"
+                 required
+                 mongoose-error/>
+          <span class="help-block" ng-show="form.secondName.$error.required && submitted">
+            Second name is required
+          </span>
+          <span class="help-block" ng-show="form.secondName.$error.mongoose">
+            {{ errors.secondName }}
           </span>
         </div>
 
@@ -93,22 +108,6 @@
           </span>          
         </div>
 
-        <div class="form-group" ng-class="{ 'has-success': form.summerLocation.$valid && submitted,
-                                            'has-error': form.summerLocation.$invalid && submitted }">
-          <label>Summer Location</label>
-
-          <input type="text" name="summerLocation" class="form-control" ng-model="user.summerLocation"
-                 required
-                 mongoose-error/>
-          <span class="help-block">Where are you staying during summer vacation ?</span>       
-          <span class="help-block" ng-show="form.summerLocation.$error.required && submitted">
-            Summer location is required
-          </span>
-          <span class="help-block" ng-show="form.summerLocation.$error.mongoose">
-            {{ errors.summerLocation }}
-          </span>          
-        </div>
-
         <div class="form-group" ng-class="{ 'has-success': form.rollNumber.$valid && submitted,
                                             'has-error': form.rollNumber.$invalid && submitted }">
           <label>Roll No.</label>
@@ -158,32 +157,4 @@
       </form>
     </div>
   </div>
-</div>
-<div class="jumbotron col-sm-4">
-  <div class="container-fluid">
-      <div id="fb-root">
-      <div class="fb-page" data-href="https://www.facebook.com/saarangiitm" data-width="500" data-height="250" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/saarangiitm"><a href="https://www.facebook.com/saarangiitm">Saarang, IIT Madras</a></blockquote></div></div>
-    </div>
-  </div>
-  <hr>
-  <div class="container-fluid">
-    <h4 class="text-center"><b>Instructions and Regulations</b></h4>
-    <h5><b>General</b></h5>
-    <ul>
-      <li><a href="https://docs.google.com/spreadsheets/d/1gqGkgST8mce3FgcYVYAeKNeTRQcLWrb2Wwnme5L1rWU/">Contact Details</a> of previous year's Coordinators.</li>
-      <br>
-
-      <li>Keep a photo-copy of your <b>Grade Card</b> for your interview.</li>
-      <br>
-      
-      <li>Deadline is <b>Deadline Here</b>.</li>
-      <br>
-                    
-      <li><b>You can find the ACM presentations <a href="#">here</a></b>.</li>
-      <br>
-      
-      <li>Contact the <a href="mailto:deepak@saarang.org?Subject=Saarang%20Coord%20Portal">WebOps Core</a> in case of any problems with the portal.</li>
-    </ul>
-  </div>
-  <br>
 </div>

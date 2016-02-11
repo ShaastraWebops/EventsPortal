@@ -9,13 +9,17 @@ var errors = require('./components/errors');
 module.exports = function(app) {
 
   // Insert routes below
-  app.use('/api/visitors', require('./api/visitor'));
-  app.use('/api/hospitality/checkins', require('./api/hospitality/checkin'));
-  app.use('/api/hospitality/rooms', require('./api/hospitality/room'));
-  app.use('/api/hospitality/hostels', require('./api/hospitality/hostel'));
-  app.use('/api/groups', require('./api/group'));
-  app.use('/api/walls', require('./api/wall'));
-  app.use('/api/notifications', require('./api/notification'));
+  app.use('/api/colleges', require('./api/college'));
+  app.use('/api/marqueeNotifs', require('./api/marqueeNotif'));
+  app.use('/api/tdpresponses', require('./api/tdpresponse'));
+  app.use('/api/tdpforms', require('./api/tdpform'));
+  app.use('/api/feedbacks', require('./api/feedback'));
+  app.use('/api/fields', require('./api/field'));
+  app.use('/api/teams', require('./api/team'));
+  app.use('/api/registrations', require('./api/registration'));
+  app.use('/api/eventTabs', require('./api/eventTab'));
+  app.use('/api/events', require('./api/event'));
+  app.use('/api/eventLists', require('./api/eventList'));
   app.use('/api/comments', require('./api/comment'));
   app.use('/api/uploads', require('./api/upload'));
   app.use('/api/forms', require('./api/form'));
@@ -24,12 +28,12 @@ module.exports = function(app) {
   app.use('/api/posts', require('./api/post'));
   app.use('/api/departments', require('./api/department'));
   app.use('/api/tasks', require('./api/task'));
-  app.use('/api/things', require('./api/thing'));
   app.use('/api/users', require('./api/user'));
+  // app.use('/api/website-users', require('./api/websiteUser'));
 
+  // app.use('/authWebsite', require('./authWebsite'));
   app.use('/auth', require('./auth'));
-  app.use('/auth_visitor', require('./authVisitor'));
-  
+
   // All undefined asset or api routes should return a 404
   app.route('/:url(api|auth|components|app|bower_components|assets)/*')
    .get(errors[404]);

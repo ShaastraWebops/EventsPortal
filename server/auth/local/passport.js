@@ -19,8 +19,7 @@ exports.setup = function (User, config) {
           return done(null, false, { message: 'This password is not correct.' });
         }
         return done(null, user);
-      })
-      .populate('department subDepartment groups', 'name');
+      });
     }
   ));
 };

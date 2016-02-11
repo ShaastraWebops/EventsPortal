@@ -15,13 +15,11 @@
       <!-- bower:css -->
       <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
       <link rel="stylesheet" href="bower_components/ngImgCrop/compile/minified/ng-img-crop.css" />
-      <link rel="stylesheet" href="bower_components/mdPickers/dist/mdPickers.min.css" />
       <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,client}) app/app.css -->
     <link rel="stylesheet" href="app/app.css">
       <!-- injector:css -->
-      <link rel="stylesheet" href="app/coordPortal/menu/menu.css">
       <link rel="stylesheet" href="app/forms/form.css">
       <!-- endinjector -->
     <!-- endbuild -->
@@ -53,29 +51,27 @@
       <!-- bower:js -->
       <script src="bower_components/jquery/dist/jquery.js"></script>
       <script src="bower_components/angular/angular.js"></script>
-      <script src="bower_components/angular-resource/angular-resource.js"></script>
-      <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-      <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
       <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-      <script src="bower_components/lodash/dist/lodash.compat.js"></script>
-      <script src="bower_components/angular-socket-io/socket.js"></script>
-      <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-      <script src="bower_components/ng-file-upload/angular-file-upload.js"></script>
-      <script src="bower_components/angular-smart-table/dist/smart-table.js"></script>
-      <script src="bower_components/angular-permission/dist/angular-permission.js"></script>
-      <script src="bower_components/ng-facebook/ngFacebook.js"></script>
+      <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+      <script src="bower_components/angular-elastic/elastic.js"></script>
       <script src="bower_components/angular-animate/angular-animate.js"></script>
       <script src="bower_components/angular-aria/angular-aria.js"></script>
       <script src="bower_components/angular-material/angular-material.js"></script>
       <script src="bower_components/angular-material-icons/angular-material-icons.min.js"></script>
+      <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+      <script src="bower_components/angular-permission/dist/angular-permission.js"></script>
+      <script src="bower_components/angular-resource/angular-resource.js"></script>
+      <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+      <script src="bower_components/angular-smart-table/dist/smart-table.js"></script>
+      <script src="bower_components/angular-socket-io/socket.js"></script>
       <script src="bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js"></script>
       <script src="bower_components/angular-tags/dist/angular-tags-0.2.10.js"></script>
-      <script src="bower_components/angular-messages/angular-messages.js"></script>
-      <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
+      <script src="bower_components/angular-truncate/src/truncate.js"></script>
+      <script src="bower_components/lodash/dist/lodash.compat.js"></script>
+      <script src="bower_components/ng-facebook/ngFacebook.js"></script>
+      <script src="bower_components/ng-file-upload/angular-file-upload.js"></script>
       <script src="bower_components/ngImgCrop/compile/minified/ng-img-crop.js"></script>
-      <script src="bower_components/angular-img-fallback/angular.dcb-img-fallback.js"></script>
-      <script src="bower_components/moment/moment.js"></script>
-      <script src="bower_components/mdPickers/dist/mdPickers.min.js"></script>
+      <script src="bower_components/showdown/dist/showdown.js"></script>
       <!-- endbower -->
       <script src="socket.io-client/socket.io.js"></script>
     <!-- endbuild -->
@@ -92,21 +88,29 @@
           <script src="app/account/signup/signup.controller.js"></script>
           <script src="app/addTeam/addTeam.controller.js"></script>
           <script src="app/addTeam/addTeam.js"></script>
-          <script src="app/admin/admin.controller.js"></script>
-          <script src="app/admin/admin.js"></script>
           <script src="app/coordPortal/coordPortal.js"></script>
-          <script src="app/coordPortal/coordPortalService.service.js"></script>
-          <script src="app/coordPortal/cores/cores.controller.js"></script>
-          <script src="app/coordPortal/cores/responseDetails.controller.js"></script>
-          <script src="app/coordPortal/cores/responses.controller.js"></script>
-          <script src="app/coordPortal/dashboard/dashboard.controller.js"></script>
-          <script src="app/coordPortal/editProfile/editProfile.controller.js"></script>
-          <script src="app/coordPortal/menu/for_pdfMake_vfs_fonts.js"></script>
-          <script src="app/coordPortal/menu/menu.controller.js"></script>
-          <script src="app/coordPortal/menu/menu.js"></script>
           <script src="app/departments/departments.controller.js"></script>
           <script src="app/departments/departments.js"></script>
           <script src="app/errors/errors.js"></script>
+          <script src="app/eventsPortal/allEvents/allEvents.controller.js"></script>
+          <script src="app/eventsPortal/cores/cores.controller.js"></script>
+          <script src="app/eventsPortal/dashboard/dashboard.controller.js"></script>
+          <script src="app/eventsPortal/event/event.controller.js"></script>
+          <script src="app/eventsPortal/eventList/eventList.controller.js"></script>
+          <script src="app/eventsPortal/eventMarqueeNotifications/eventMarqueeNotifications.controller.js"></script>
+          <script src="app/eventsPortal/eventsPortal.js"></script>
+          <script src="app/eventsPortal/eventsPortal.service.js"></script>
+          <script src="app/eventsPortal/registrations/registrations.controller.js"></script>
+          <script src="app/eventsPortal/sis-registrations/sis-registrations.controller.js"></script>
+          <script src="app/eventsPortal/stats/stats.js"></script>
+          <script src="app/eventsPortal/tdpSubmit/tdpSubmit.controller.js"></script>
+          <script src="app/eventsPortal/tdpSubmit/tdpSubmit.directive.js"></script>
+          <script src="app/eventsPortal/tdpSubmit/tdpSubmit.js"></script>
+          <script src="app/eventsPortal/tdpSubmit/tdpSubmit.service.js"></script>
+          <script src="app/eventsPortal/tdpselect/tdpselect.controller.js"></script>
+          <script src="app/eventsPortal/tdpselect/tdpselect.js"></script>
+          <script src="app/feedback/feedback.controller.js"></script>
+          <script src="app/feedback/feedback.js"></script>
           <script src="app/forms/form.js"></script>
           <script src="app/forms/form.service.js"></script>
           <script src="app/forms/formCreate/formCreate.controller.js"></script>
@@ -116,15 +120,15 @@
           <script src="app/main/main.controller.js"></script>
           <script src="app/main/main.js"></script>
           <script src="app/newsfeed/newsfeed.controller.js"></script>
-          <script src="app/newsfeed/newsfeed.js"></script>
           <script src="app/postService/postService.service.js"></script>
-          <script src="app/tasks/tasks.controller.js"></script>
-          <script src="app/tasks/tasks.js"></script>
           <script src="app/wall/department/department.controller.js"></script>
           <script src="app/wall/postComment/postComment.service.js"></script>
           <script src="app/wall/profile/profile.controller.js"></script>
           <script src="app/wall/subDepartment/subDepartment.controller.js"></script>
           <script src="app/wall/wall.js"></script>
+          <script src="app/web/event/event.controller.js"></script>
+          <script src="app/web/eventsPortal.js"></script>
+          <script src="app/web/eventsPortal.service.js"></script>
           <script src="components/auth/auth.service.js"></script>
           <script src="components/auth/user.service.js"></script>
           <script src="components/modal/modal.service.js"></script>

@@ -1,0 +1,177 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+  <!-- // <script src="https://cdn.rawgit.com/alexk111/ngImgCrop/master/compile/minified/ng-img-crop.js"></script> -->
+  <!-- <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/alexk111/ngImgCrop/master/compile/minified/ng-img-crop.css"> -->
+  <style>
+    .cropArea {
+      background: #E4E4E4;
+      overflow: hidden;
+      width:500px;
+      height:350px;
+    }
+  </style>
+
+<div class="md-whiteframe-z1">
+  <md-toolbar class="md-warn">
+    <h1 class="md-toolbar-tools">
+      Please note that both the forms are different and don't combine them. You shouldn't fill both the forms the same time
+    </h1>
+  </md-toolbar>
+</div>
+
+<div layout="row" layout-margin>
+
+  <div class="eventsPortal" flex flex-order="1">
+    <div class="md-whiteframe-z1">
+      <md-toolbar class="md-primary">
+        <h1 class="md-toolbar-tools">
+          Create a new Category - EventList ( Form-1 )
+        </h1>
+      </md-toolbar>
+
+      <md-content layout-padding>
+        <form name="newEventListForm" ng-submit="newEventList(newEventListForm)" novalidate>
+
+          <md-input-container>
+            <label>Category Name</label>
+            <input name="title" ng-model="eventList.title" ng-required="true" mongoose-error />
+          </md-input-container>
+          <div style="color:red">
+            <span ng-show="form.title.$error.required && submitted">
+              Title is required.
+            </span>
+            <span>{{ errors.other }}</sapn>
+          </div>
+
+          <md-input-container>
+            <label>Category Info</label>
+            <textarea required name="info" ng-model="eventList.info" mongoose-error></textarea>
+          </md-input-container>
+          <div style="color:red">
+            <span ng-show="form.info.$error.required && submitted">
+              Info is required.
+            </span>
+            <span>{{ errors.other }}</sapn>
+          </div>
+
+          <md-input-container>
+            <label>Category Picture</label>
+            <br> &nbsp;
+            Select an Image file: 
+            <input class='btn' type="file" id="file" accept="image/*" required="" />
+            <div class="cropArea">
+              <img-crop image="myImage" result-image="myCroppedImage" area-type="square" result-image-size="200"></img-crop>
+            </div>
+            <div>Cropped Image:</div>
+            <div><img ng-src="{{myCroppedImage}}" /></div>
+          </md-input-container>
+
+          <md-button type="submit" class="md-raised md-primary">Create</md-button>
+        </form>
+      </md-content>  
+    </div>
+  </div>
+
+  <div class="eventsPortal" flex flex-order="2">
+    <div class="md-whiteframe-z1">
+      <md-toolbar class="md-primary">
+        <h1 class="md-toolbar-tools">
+          Create a new Event ( Form-2 )
+        </h1>
+      </md-toolbar>
+
+      <md-content layout-padding>
+        <form name="newEventForm" ng-submit="createEvent(newEventForm)" novalidate>
+
+          <md-input-container>
+            <label>Event Name</label>
+            <input name="title" ng-model="event.title" ng-required="true" mongoose-error />
+          </md-input-container>
+          <div style="color:red">
+            <span ng-show="form.title.$error.required && submitted">
+              Title is required.
+            </span>
+            <span>{{ errors.other }}</sapn>
+          </div>
+
+          <md-input-container>
+            <label>Event Info</label>
+            <textarea required name="info" ng-model="event.info" mongoose-error></textarea>
+          </md-input-container>
+          <div style="color:red">
+            <span ng-show="form.info.$error.required && submitted">
+              Info is required.
+            </span>
+            <span>{{ errors.other }}</span>
+          </div>
+
+          <md-input-container>
+            <label>Venue</label>
+            <input name="title" ng-model="venue" ng-required="true" mongoose-error />
+          </md-input-container>
+
+          <table><tr><td>
+            <md-checkbox ng-model="individualEvent" ng-change="toggleIndividuality()" aria-label="Individual event">
+              Individual event
+            </md-checkbox></td><td>
+            <div ng-if="isTeamEvent()">
+            <md-input-container flex>
+              <label>Number of members per team</label>
+              <input type="number" step="any" ng-model="maxTeamMembers" ng-change="fff(maxTeamMembers)" min="2" max="100">
+            </md-input-container></div></td></tr></table>
+
+            <md-checkbox ng-model="isEvent" aria-label="is event">
+              Add it as an Event
+            </md-checkbox>
+            <md-checkbox ng-model="isWorkshop" aria-label="is workshop">
+              Add it as a Workshop
+            </md-checkbox>
+
+          <md-chips ng-model="selectedCoords" md-autocomplete-snap md-require-match>
+            <md-autocomplete
+              md-selected-item="selectedItem"
+              md-search-text="searchText"
+              md-items="item in coords"
+              md-item-text="item.name"
+              placeholder="Assign a team member">
+                <span md-highlight-text="searchText">{{ item.name }}</span>
+            </md-autocomplete>
+            <md-chip-template>
+              <strong>{{ $chip.name }}</strong>
+            </md-chip-template>
+          </md-chips>
+          <br>
+
+          <md-chips ng-model="selectedEventLists" md-autocomplete-snap md-require-match>
+            <md-autocomplete
+              md-selected-item="selectedItem"
+              md-search-text="searchText"
+              md-items="item in eventLists"
+              md-item-text="item.title"
+              placeholder="Assign an event list">
+                <span md-highlight-text="searchText">{{ item.title }}</span>
+            </md-autocomplete>
+            <md-chip-template>
+              <strong>{{ $chip.title }}</strong>
+            </md-chip-template>
+          </md-chips>
+
+          <md-input-container>
+            <label>Category Picture</label>
+            <br> &nbsp;
+            Select an Image file: 
+            <input class='btn' type="file" id="file2" accept="image/*" required="" />
+            <div class="cropArea">
+              <img-crop image="myImage2" result-image="myCroppedImage2" area-type="square" result-image-size="200"></img-crop>
+            </div>
+            <div>Cropped Image:</div>
+            <div><img ng-src="{{myCroppedImage2}}" /></div>
+          </md-input-container>
+
+          <md-button type="submit" class="md-raised md-primary">Create</md-button>
+        </form>
+      </md-content>  
+    </div>
+  </div>
+
+</div>

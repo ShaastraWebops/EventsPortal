@@ -1,0 +1,19 @@
+.eventListContainer {
+	position: absolute; 
+	height: 300px;
+	width: 80%;
+	left: 5%; 
+	padding-right: 40%; 
+}	
+
+.scrollOnHover {
+	overflow-y: hidden;
+	&:hover {
+		overflow-y: auto;
+	}
+}
+
+.eventsContainer {
+	padding-left: 50%;
+	padding-right: 5%;
+}
