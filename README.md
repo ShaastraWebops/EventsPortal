@@ -1,6 +1,4 @@
-# erp-2016
-
-[![Join the chat at https://gitter.im/The-WebOps-Club/erp-2016](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/The-WebOps-Club/erp-2016?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+# Shaastra Events-Portal-2016
 
 - After cloning the repo, ```cd``` into this ditectory and then execute ```npm install && bower install``` through terminal.
 - If you don't have ```npm``` installed, then first you need to install ```nvm```,
